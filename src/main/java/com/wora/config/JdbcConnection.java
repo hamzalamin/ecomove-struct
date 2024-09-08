@@ -10,7 +10,7 @@ public class JdbcConnection {
     private  static Connection CONNECTION = null;
 
 
-    private final String url = "jdbc:postgresql://localhost:5432/ecomove";
+    private final String url = "jdbc:postgresql://localhost:5432/ecomove_v2";
     private final String username = "postgres";
     private final String password = "123";
 
