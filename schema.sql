@@ -49,3 +49,35 @@ CREATE TABLE tickets (
     sale_price FLOAT,
     sale_date DATE
 );
+
+CREATE TABLE route(
+    id UUID PRIMARY KEY,
+    departed VARCHAR(255),
+    destination VARCHAR(255),
+    duration TIME,
+    ticket_id UUID REFERENCES tickets(id)
+);
+
+CREATE TABLE users(
+    id UUID,
+    name VARCHAR(255),
+    last_name VARCHAR(255),
+    email VARCHAR(255),
+    phone_number VARCHAR(255)
+);
+
+CREATE TABLE booking(
+    id UUID,
+    departed VARCHAR(255),
+    destination VARCHAR(255),
+    departed_date DATE,
+    price FLOAT,
+    user_id UUID REFERENCES users(id)
+);
+
+
+CREATE TABLE tickets_clients(
+    id UUID,
+    ticket_id UUID REFERENCES tickets(id),
+    booking_id UUID REFERENCES booking(id)
+);
