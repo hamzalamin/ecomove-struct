@@ -25,12 +25,12 @@ public class Main {
 
         IUserRepository userRepository = new UserRepository();
         IUserService userService = new UserService(userRepository);
-        UserUi userUi = new UserUi(userService);
 
-        AuthUi authMenue = new AuthUi(userUi);
         MainMenu mainMenu = new MainMenu(partnerUi, contractUi);
+        UserUi userUi = new UserUi(userService, mainMenu);
 
-        authMenue.AuthMenu();
-        mainMenu.showMenu();
+        AuthUi authMenu = new AuthUi(userUi);
+        authMenu.AuthMenu();
+        userUi.login();
     }
 }

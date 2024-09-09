@@ -4,16 +4,19 @@ import com.wora.models.dtos.CreateLoginDto;
 import com.wora.models.dtos.CreateRegisterDto;
 import com.wora.models.entities.User;
 import com.wora.services.IUserService;
-import com.wora.services.UserService;
 
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.Scanner;
 
 public class UserUi {
     private final IUserService Service;
+    private final MainMenu mainMenu;
 
-    public UserUi(IUserService service) {
+    public UserUi(IUserService service, MainMenu mainMenu) {
         Service = service;
+        this.mainMenu = mainMenu;
+
     }
 
     public void register() {
@@ -37,7 +40,7 @@ public class UserUi {
         System.out.println("User registered successfully!");
     }
 
-    public void login() {
+    public void login() throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter your email: ");
@@ -50,6 +53,7 @@ public class UserUi {
 
         if (user.isPresent()) {
             System.out.println("Login successful! Welcome, " + user.get().getName());
+            mainMenu.showMenu();
         } else {
             System.out.println("Invalid email or password. Please try again.");
         }
