@@ -7,30 +7,35 @@ import com.wora.repositories.TicketRepository;
 import java.util.List;
 import java.util.UUID;
 
-public class TicketService {
+public class TicketService implements ITicketService {
     private final TicketRepository repository;
 
     public TicketService(TicketRepository repository) {
         this.repository = repository;
     }
 
+    @Override
     public List<Ticket> findAll() {
         return repository.findAll();
     }
 
+    @Override
     public Ticket findById(String id) {
         return repository.findById(UUID.fromString(id))
                 .orElseThrow();
     }
 
+    @Override
     public void create(CreateTicketDto dto) {
         repository.create(dto);
     }
 
+    @Override
     public void update(CreateTicketDto dto, UUID id) {
         repository.update(dto);
     }
 
+    @Override
     public void delete(String id) {
         repository.delete(UUID.fromString(id));
     }

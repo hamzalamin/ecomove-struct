@@ -7,17 +7,19 @@ import com.wora.repositories.UserRepository;
 
 import java.util.Optional;
 
-public class UserService {
+public class UserService implements IUserService{
     private final UserRepository repository;
 
     public UserService(UserRepository repository) {
         this.repository = repository;
     }
 
+    @Override
     public void registerUser(CreateRegisterDto dto) {
         repository.register(dto);
     }
 
+    @Override
     public Optional<User> loginUser(CreateLoginDto dto) {
         return repository.login(dto.email(), dto.name());
     }

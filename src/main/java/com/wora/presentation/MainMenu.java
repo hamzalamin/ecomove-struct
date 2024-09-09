@@ -24,10 +24,6 @@ public class MainMenu {
     TicketService ticketService = new TicketService(ticketRepository);
     TicketUi ticketUi = new TicketUi(ticketService);
 
-    UserRepository userRepository = new UserRepository();
-    UserService userService = new UserService(userRepository);
-    UserUi userUi = new UserUi(userService);
-
     public MainMenu(PartnerUi partnerUi, ContractUi contractUi) {
         this.partnerUi = partnerUi;
         this.contractUi = contractUi;
@@ -50,10 +46,9 @@ public class MainMenu {
             System.out.println("11. Create a Ticket");
             System.out.println("12. Update a Ticket");
             System.out.println("13. Delete a Ticket");
-            System.out.println("14. Register");
-            System.out.println("15. Log in");
 
-            System.out.println("16. Exit");
+
+            System.out.println("14. Exit");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
             switch (choice) {
@@ -79,7 +74,7 @@ public class MainMenu {
                     contractUi.delete();
                     break;
                 case 8:
-                    offerUi.creat();
+                    offerUi.create();
                     break;
                 case 9:
                     offerUi.update();
@@ -97,12 +92,6 @@ public class MainMenu {
                     ticketUi.delete();
                     break;
                 case 14:
-                    userUi.register();
-                    break;
-                case 15:
-                    userUi.login();
-                    break;
-                case 16:
                     System.out.println("Exiting...");
                     break;
                 default:
@@ -110,6 +99,6 @@ public class MainMenu {
                     break;
             }
             System.out.println();
-        } while (choice != 16);
+        } while (choice != 14);
     }
 }

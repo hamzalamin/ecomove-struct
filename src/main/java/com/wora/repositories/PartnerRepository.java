@@ -11,10 +11,11 @@ import java.util.*;
 //import java.util.Date;
 import java.sql.Date;
 
-public class PartnerRepository {
+public class PartnerRepository implements IPartnerRepository {
     private final Connection connection = JdbcConnection.getInstance().getConnection();
     private final String tableName = "partners";
 
+    @Override
     public List<Partner> findAll() {
         final String query = "SELECT * FROM partners";
         final List<Partner> partners = new ArrayList<>();
@@ -31,6 +32,7 @@ public class PartnerRepository {
         }
     }
 
+    @Override
     public Optional<Partner> findById(UUID id) {
         final String query = "SELECT * FROM partners WHERE id = ?::uuid";
         Optional<Partner> partner = Optional.empty();
@@ -48,6 +50,7 @@ public class PartnerRepository {
 
     }
 
+    @Override
     public void create(CreatePartnerDto dto) {
         final String query = """
                 INSERT INTO partners
@@ -63,7 +66,7 @@ public class PartnerRepository {
         }
     }
 
-
+    @Override
     public void update(UUID id, CreatePartnerDto dto) {
         final String query = """
                 UPDATE partners
@@ -84,6 +87,7 @@ public class PartnerRepository {
         }
     }
 
+    @Override
     public void delete(UUID id) {
         final String query = "DELETE FROM " + tableName + " WHERE id = ?::uuid";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {

@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class InputScanner {
-    private final static Scanner scanner = new Scanner(System.in);
+    public final static Scanner scanner = new Scanner(System.in);
 
     public static Date scanDate(String prompt) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

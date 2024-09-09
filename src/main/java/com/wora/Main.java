@@ -1,12 +1,12 @@
 package com.wora;
 
-import com.wora.presentation.ContractUi;
-import com.wora.presentation.MainMenu;
-import com.wora.presentation.PartnerUi;
+import com.wora.presentation.*;
 import com.wora.repositories.ContractRepository;
 import com.wora.repositories.PartnerRepository;
+import com.wora.repositories.UserRepository;
 import com.wora.services.ContractService;
 import com.wora.services.PartnerService;
+import com.wora.services.UserService;
 
 import java.sql.SQLException;
 
@@ -21,8 +21,14 @@ public class Main {
         ContractService contractService = new ContractService(contractRepository);
         ContractUi contractUi = new ContractUi(contractService, partnerService);
 
+        UserRepository userRepository = new UserRepository();
+        UserService userService = new UserService(userRepository);
+        UserUi userUi = new UserUi(userService);
 
+        AuthUi authMenue = new AuthUi(userUi);
         MainMenu mainMenu = new MainMenu(partnerUi, contractUi);
+
+        authMenue.AuthMenu();
         mainMenu.showMenu();
     }
 }

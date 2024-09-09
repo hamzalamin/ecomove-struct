@@ -13,10 +13,11 @@ import java.util.*;
 import java.util.Date;
 
 
-public class ContractRepository {
+public class ContractRepository implements IContractRepository {
     private final Connection connection = JdbcConnection.getInstance().getConnection();
     private final String tableName = "contracts";
 
+    @Override
     public List<Contract> findAll() {
         final String query = "SELECT c.*, p.* FROM contracts c INNER JOIN partners p ON c.partner_id = p.id";
 
@@ -32,6 +33,7 @@ public class ContractRepository {
         }
     }
 
+    @Override
     public Optional<Contract> findById(UUID id) {
         final String query = "SELECT p.*, c.* FROM  contracts p INNER JOIN contracts c ON p.id = ?::uuid ";
         Optional<Contract> contract = Optional.empty();
@@ -48,7 +50,7 @@ public class ContractRepository {
         }
 
     }
-
+    @Override
     public void create(CreateContractDto dto) {
         final String query = "INSERT INTO " + tableName + " (start_date, end_date, special_conditions," +
                 "renewable, contract_status," +
@@ -66,7 +68,7 @@ public class ContractRepository {
             throw new RuntimeException(e);
         }
     }
-
+    @Override
     public void update(CreateContractDto dto, UUID id) {
         final String query = """
                 UPDATE contracts
@@ -90,6 +92,8 @@ public class ContractRepository {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
     public void delete(UUID id) {
         final String query = "DELETE FROM " + tableName + " WHERE id = ?::uuid";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {

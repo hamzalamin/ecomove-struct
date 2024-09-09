@@ -7,10 +7,11 @@ import com.wora.models.entities.Ticket;
 import java.sql.*;
 import java.util.*;
 
-public class TicketRepository {
+public class TicketRepository implements ITicketRepository {
     private final Connection connection = JdbcConnection.getInstance().getConnection();
     private final String tableName = "tickets";
 
+    @Override
     public List<Ticket> findAll(){
         final String query = "SELECT * FROM " + tableName;
         final List<Ticket> tickets = new ArrayList<>();
@@ -25,6 +26,7 @@ public class TicketRepository {
         }
     }
 
+    @Override
     public Optional<Ticket> findById(UUID id) {
         final String query = "SELECT * FROM tickets WHERE id = ?::uuid";
         Optional<Ticket> ticket = Optional.empty();
@@ -42,6 +44,7 @@ public class TicketRepository {
 
     }
 
+    @Override
     public void create(CreateTicketDto dto){
         final String query = "INSERT INTO "
                 + tableName +
@@ -61,6 +64,7 @@ public class TicketRepository {
         }
     }
 
+    @Override
     public void update(CreateTicketDto dto) {
         final String query = """
                 UPDATE tickets
@@ -82,6 +86,7 @@ public class TicketRepository {
         }
     }
 
+    @Override
     public void delete(UUID id) {
         final String query = "DELETE FROM " + tableName + " WHERE id = ?::uuid";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {

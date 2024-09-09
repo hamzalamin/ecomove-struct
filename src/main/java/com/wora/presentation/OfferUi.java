@@ -24,7 +24,7 @@ public class OfferUi {
         this.contractService = contractService;
     }
 
-    public void creat() {
+    public void create() {
 
         try {
             System.out.println("Enter the Offre name:");

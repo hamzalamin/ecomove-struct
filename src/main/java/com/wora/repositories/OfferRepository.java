@@ -13,10 +13,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class OfferRepository {
+public class OfferRepository implements IOfferRepository {
     private final Connection connection = JdbcConnection.getInstance().getConnection();
     private final String tableName = "offers";
 
+    @Override
     public List<Offer> findAll() {
         final String query = "SELECT o.id AS offer_id, o.offer_name, o.description, o.start_date, o.end_date,\n" +
                 "       o.discount_value, o.conditions, o.reduction_type, o.offer_status,\n" +
@@ -36,6 +37,7 @@ public class OfferRepository {
         }
     }
 
+    @Override
     public Optional<Offer> findById(UUID id) {
         final String query = "SELECT *\n" +
                 "FROM offers " +
@@ -57,6 +59,7 @@ public class OfferRepository {
 
     }
 
+    @Override
     public void create(CreateOfferDto dto) {
         final String query = "INSERT INTO " + tableName + " (offer_name, description, start_date," +
                 " end_date, discount_value, conditions, reduction_type, offer_status, " +
@@ -75,6 +78,7 @@ public class OfferRepository {
         }
     }
 
+    @Override
     public void update(CreateOfferDto dto) {
         final String query = """
                 UPDATE offers
@@ -102,6 +106,7 @@ public class OfferRepository {
         }
     }
 
+    @Override
     public void delete(UUID id) {
         final String query = "DELETE FROM " + tableName + " WHERE id = ?::uuid";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {

@@ -11,9 +11,10 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.UUID;
 
-public class UserRepository {
+public class UserRepository implements IUserRepository {
     private final Connection connection = JdbcConnection.getInstance().getConnection();
 
+    @Override
     public void register(CreateRegisterDto dto) {
         final String query = """
                 INSERT INTO users (id, name, last_name, email, phone_number)
@@ -32,6 +33,7 @@ public class UserRepository {
         }
     }
 
+    @Override
     public Optional<User> login(String email, String name) {
         final String query = "SELECT * FROM users WHERE email = ? AND name = ?";
 
