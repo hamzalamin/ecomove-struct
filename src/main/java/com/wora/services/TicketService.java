@@ -2,15 +2,16 @@ package com.wora.services;
 
 import com.wora.models.dtos.CreateTicketDto;
 import com.wora.models.entities.Ticket;
+import com.wora.repositories.ITicketRepository;
 import com.wora.repositories.TicketRepository;
 
 import java.util.List;
 import java.util.UUID;
 
 public class TicketService implements ITicketService {
-    private final TicketRepository repository;
+    private final ITicketRepository repository;
 
-    public TicketService(TicketRepository repository) {
+    public TicketService(ITicketRepository repository) {
         this.repository = repository;
     }
 

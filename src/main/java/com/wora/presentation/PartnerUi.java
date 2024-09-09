@@ -4,6 +4,7 @@ import com.wora.models.dtos.CreatePartnerDto;
 import com.wora.models.entities.Partner;
 import com.wora.models.enums.PartnerStatus;
 import com.wora.models.enums.TransportType;
+import com.wora.services.IPartnerService;
 import com.wora.services.PartnerService;
 
 import java.util.Date;
@@ -11,10 +12,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class PartnerUi {
-    private final PartnerService service;
+    private final IPartnerService service;
     private final Scanner scanner = new Scanner(System.in);
 
-    public PartnerUi(PartnerService partnerService) {
+    public PartnerUi(IPartnerService partnerService) {
         this.service = partnerService;
     }
 

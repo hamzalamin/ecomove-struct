@@ -2,9 +2,11 @@ package com.wora;
 
 import com.wora.presentation.*;
 import com.wora.repositories.ContractRepository;
+import com.wora.repositories.IUserRepository;
 import com.wora.repositories.PartnerRepository;
 import com.wora.repositories.UserRepository;
 import com.wora.services.ContractService;
+import com.wora.services.IUserService;
 import com.wora.services.PartnerService;
 import com.wora.services.UserService;
 
@@ -21,8 +23,8 @@ public class Main {
         ContractService contractService = new ContractService(contractRepository);
         ContractUi contractUi = new ContractUi(contractService, partnerService);
 
-        UserRepository userRepository = new UserRepository();
-        UserService userService = new UserService(userRepository);
+        IUserRepository userRepository = new UserRepository();
+        IUserService userService = new UserService(userRepository);
         UserUi userUi = new UserUi(userService);
 
         AuthUi authMenue = new AuthUi(userUi);

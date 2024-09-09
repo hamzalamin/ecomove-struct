@@ -9,19 +9,19 @@ import java.util.Scanner;
 public class MainMenu {
     private final Scanner scanner = new Scanner(System.in);
     com.wora.repositories.PartnerRepository PartnerRepository = new PartnerRepository();
-    PartnerService partnerService = new PartnerService(PartnerRepository);
+    IPartnerService partnerService = new PartnerService(PartnerRepository);
     PartnerUi partnerUi = new PartnerUi(partnerService);
 
-    ContractRepository contractRepository = new ContractRepository();
-    ContractService contractService = new ContractService(contractRepository);
+    IContractRepository contractRepository = new ContractRepository();
+    IContractService contractService = new ContractService(contractRepository);
     ContractUi contractUi = new ContractUi(contractService, partnerService);
 
-    OfferRepository offerRepository = new OfferRepository();
-    OfferService offerService = new OfferService(offerRepository);
+    IOfferRepository offerRepository = new OfferRepository();
+    IOfferService offerService = new OfferService(offerRepository);
     OfferUi offerUi = new OfferUi(offerService, contractService);
 
-    TicketRepository ticketRepository = new TicketRepository();
-    TicketService ticketService = new TicketService(ticketRepository);
+    ITicketRepository ticketRepository = new TicketRepository();
+    ITicketService ticketService = new TicketService(ticketRepository);
     TicketUi ticketUi = new TicketUi(ticketService);
 
     public MainMenu(PartnerUi partnerUi, ContractUi contractUi) {

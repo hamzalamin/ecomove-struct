@@ -3,14 +3,15 @@ package com.wora.services;
 import com.wora.models.dtos.CreateLoginDto;
 import com.wora.models.dtos.CreateRegisterDto;
 import com.wora.models.entities.User;
+import com.wora.repositories.IUserRepository;
 import com.wora.repositories.UserRepository;
 
 import java.util.Optional;
 
 public class UserService implements IUserService{
-    private final UserRepository repository;
+    private final IUserRepository repository;
 
-    public UserService(UserRepository repository) {
+    public UserService(IUserRepository repository) {
         this.repository = repository;
     }
 

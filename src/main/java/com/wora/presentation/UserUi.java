@@ -3,15 +3,16 @@ package com.wora.presentation;
 import com.wora.models.dtos.CreateLoginDto;
 import com.wora.models.dtos.CreateRegisterDto;
 import com.wora.models.entities.User;
+import com.wora.services.IUserService;
 import com.wora.services.UserService;
 
 import java.util.Optional;
 import java.util.Scanner;
 
 public class UserUi {
-    private final UserService Service;
+    private final IUserService Service;
 
-    public UserUi(UserService service) {
+    public UserUi(IUserService service) {
         Service = service;
     }
 

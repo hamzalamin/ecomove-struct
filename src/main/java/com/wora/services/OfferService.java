@@ -2,15 +2,16 @@ package com.wora.services;
 
 import com.wora.models.dtos.CreateOfferDto;
 import com.wora.models.entities.Offer;
+import com.wora.repositories.IOfferRepository;
 import com.wora.repositories.OfferRepository;
 
 import java.util.List;
 import java.util.UUID;
 
 public class OfferService implements IOfferService {
-    private final OfferRepository repository;
+    private final IOfferRepository repository;
 
-    public OfferService(OfferRepository repository) {
+    public OfferService(IOfferRepository repository) {
         this.repository = repository;
     }
 

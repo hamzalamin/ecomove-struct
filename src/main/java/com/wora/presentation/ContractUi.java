@@ -9,6 +9,8 @@ import com.wora.models.enums.ContractStatus;
 import com.wora.repositories.ContractRepository;
 import com.wora.repositories.PartnerRepository;
 import com.wora.services.ContractService;
+import com.wora.services.IContractService;
+import com.wora.services.IPartnerService;
 import com.wora.services.PartnerService;
 
 import java.sql.SQLException;
@@ -21,11 +23,11 @@ import static com.wora.utli.InputScanner.scanDate;
 
 public class ContractUi {
 
-    private final ContractService service;
-    private final PartnerService partnerService;
+    private final IContractService service;
+    private final IPartnerService partnerService;
     private final Scanner scanner = new Scanner(System.in);
 
-    public ContractUi(ContractService service, PartnerService partnerService) {
+    public ContractUi(IContractService service, IPartnerService partnerService) {
         this.service = service;
         this.partnerService = partnerService;
     }

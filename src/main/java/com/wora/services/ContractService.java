@@ -3,14 +3,15 @@ package com.wora.services;
 import com.wora.models.dtos.CreateContractDto;
 import com.wora.models.entities.Contract;
 import com.wora.repositories.ContractRepository;
+import com.wora.repositories.IContractRepository;
 
 import java.util.List;
 import java.util.UUID;
 
 public class ContractService implements IContractService {
-    private final ContractRepository repository;
+    private final IContractRepository repository;
 
-    public ContractService(ContractRepository repository) {
+    public ContractService(IContractRepository repository) {
         this.repository = repository;
     }
 

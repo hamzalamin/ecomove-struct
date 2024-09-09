@@ -4,6 +4,7 @@ import com.wora.models.dtos.CreateOfferDto;
 import com.wora.models.dtos.CreateTicketDto;
 import com.wora.models.entities.Ticket;
 import com.wora.services.ContractService;
+import com.wora.services.ITicketService;
 import com.wora.services.OfferService;
 import com.wora.services.TicketService;
 
@@ -15,9 +16,9 @@ import java.util.UUID;
 import static com.wora.utli.InputScanner.scanDate;
 
 public class TicketUi {
-    private final TicketService service;
+    private final ITicketService service;
 
-    public TicketUi(TicketService service) {
+    public TicketUi(ITicketService service) {
         this.service = service;
     }
 

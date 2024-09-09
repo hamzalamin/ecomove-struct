@@ -5,6 +5,8 @@ import com.wora.models.entities.Offer;
 import com.wora.models.enums.OfferStatus;
 import com.wora.models.enums.ReductionType;
 import com.wora.services.ContractService;
+import com.wora.services.IContractService;
+import com.wora.services.IOfferService;
 import com.wora.services.OfferService;
 
 import java.util.Date;
@@ -15,11 +17,11 @@ import java.util.UUID;
 import static com.wora.utli.InputScanner.scanDate;
 
 public class OfferUi {
-    private final OfferService service;
-    private final ContractService contractService;
+    private final IOfferService service;
+    private final IContractService contractService;
     private final Scanner scanner = new Scanner(System.in);
 
-    public OfferUi(OfferService service, ContractService contractService) {
+    public OfferUi(IOfferService service, IContractService contractService) {
         this.service = service;
         this.contractService = contractService;
     }
