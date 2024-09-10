@@ -1,16 +1,11 @@
 package com.wora;
 
 import com.wora.presentation.*;
-import com.wora.repositories.ContractRepository;
-import com.wora.repositories.IUserRepository;
-import com.wora.repositories.PartnerRepository;
-import com.wora.repositories.UserRepository;
-import com.wora.services.ContractService;
-import com.wora.services.IUserService;
-import com.wora.services.PartnerService;
-import com.wora.services.UserService;
+import com.wora.repositories.*;
+import com.wora.services.*;
 
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
@@ -26,8 +21,20 @@ public class Main {
         IUserRepository userRepository = new UserRepository();
         IUserService userService = new UserService(userRepository);
 
-        MainMenu mainMenu = new MainMenu(partnerUi, contractUi);
-        UserUi userUi = new UserUi(userService, mainMenu);
+        UserUi userUi = new UserUi(userService);
+
+
+        IOfferRepository offerRepository = new OfferRepository();
+        IOfferService offerService = new OfferService(offerRepository);
+        OfferUi offerUi = new OfferUi(offerService, contractService);
+
+        ITicketRepository ticketRepository = new TicketRepository();
+        ITicketService ticketService = new TicketService(ticketRepository);
+        TicketUi ticketUi = new TicketUi(ticketService);
+
+        MainMenu mainMenu = new MainMenu(partnerUi,contractUi,offerUi, ticketUi, userUi);
+        userUi.setMainMenu(mainMenu);
+
 
         AuthUi authMenu = new AuthUi(userUi);
         authMenu.AuthMenu();

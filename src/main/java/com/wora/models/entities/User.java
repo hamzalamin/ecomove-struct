@@ -17,6 +17,7 @@ public class User {
         this.phone_Number = phone_Number;
     }
 
+
     public UUID getId() {
         return id;
     }
@@ -56,4 +57,6 @@ public class User {
     public void setPhone_Number(String phone_Number) {
         this.phone_Number = phone_Number;
     }
+
+
 }
