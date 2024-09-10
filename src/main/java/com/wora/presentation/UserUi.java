@@ -2,6 +2,8 @@ package com.wora.presentation;
 
 import com.wora.models.dtos.CreateLoginDto;
 import com.wora.models.dtos.CreateRegisterDto;
+import com.wora.models.dtos.CreateUserDto;
+import com.wora.models.entities.AuthenticatedUser;
 import com.wora.models.entities.User;
 import com.wora.services.IUserService;
 
@@ -62,6 +64,35 @@ public class UserUi {
             mainMenu.showMenu();
         } else {
             System.out.println("Invalid email or password. Please try again.");
+        }
+    }
+
+    public void update() {
+        Scanner scanner = new Scanner(System.in);
+
+        if (!AuthenticatedUser.isAuthentified()) {
+            System.out.println("No user is currently authenticated.");
+            return;
+        }
+
+        System.out.println("Enter your first name (current:" + AuthenticatedUser.getAuthenticatedUser().getName() + "): ");
+        String name = scanner.nextLine();
+
+        System.out.println("Enter your last name (current:" + AuthenticatedUser.getAuthenticatedUser().getLastName() + "):" );
+        String lastName = scanner.nextLine();
+
+        System.out.println("Enter your email (current:" + AuthenticatedUser.getAuthenticatedUser().getEmail() + "):" );
+        String email = scanner.nextLine();
+
+        System.out.println("Enter your phone number: (current:" + AuthenticatedUser.getAuthenticatedUser().getPhone_Number() + "):" );
+        String phoneNumber = scanner.nextLine();
+
+        CreateUserDto dto = new CreateUserDto(name, email, lastName, phoneNumber);
+        Service.update(dto, AuthenticatedUser.getAuthenticatedUser().getId());
+        try {
+            System.out.println("User updated successfully");
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
         }
     }
 

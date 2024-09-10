@@ -2,13 +2,15 @@ package com.wora.services;
 
 import com.wora.models.dtos.CreateLoginDto;
 import com.wora.models.dtos.CreateRegisterDto;
+import com.wora.models.dtos.CreateUserDto;
+import com.wora.models.entities.AuthenticatedUser;
 import com.wora.models.entities.User;
 import com.wora.repositories.IUserRepository;
-import com.wora.repositories.UserRepository;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class UserService implements IUserService{
     private final IUserRepository repository;
@@ -24,7 +26,39 @@ public class UserService implements IUserService{
 
     @Override
     public Optional<User> loginUser(CreateLoginDto dto) {
-        return repository.login(dto.email(), dto.name());
+           Optional<User> userInfo = repository.login(dto.email(), dto.name());
+           if (userInfo.isPresent()){
+               AuthenticatedUser.setAuthenticatedUser(userInfo.get());
+               User user = userInfo.get();
+               if (user.getName().equals(dto.name()) && user.getEmail().equals(dto.email())){
+                   return Optional.of(user);
+               }
+           }
+        return Optional.empty();
+    }
+
+    @Override
+    public User update(CreateUserDto user, UUID id){
+
+        if (AuthenticatedUser.isAuthentified()) {
+            User authenticatedUser = AuthenticatedUser.getAuthenticatedUser();
+
+            authenticatedUser.setName(user.name());
+            authenticatedUser.setLastName(user.lastName());
+            authenticatedUser.setEmail(user.email());
+            authenticatedUser.setPhone_Number(user.phoneNumber());
+
+            User updatedUser = repository.update(authenticatedUser, authenticatedUser.getId());
+
+            AuthenticatedUser.setAuthenticatedUser(updatedUser);
+
+            System.out.println("User updated successfully: " + updatedUser.getName() + ", " + updatedUser.getEmail());
+
+            return updatedUser;
+        } else {
+            System.out.println("No authenticated user to update.");
+            throw new RuntimeException("No authenticated user to update.");
+        }
     }
 
     @Override

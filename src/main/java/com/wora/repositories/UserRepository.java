@@ -2,6 +2,7 @@ package com.wora.repositories;
 
 import com.wora.config.JdbcConnection;
 import com.wora.models.dtos.CreateRegisterDto;
+import com.wora.models.entities.Ticket;
 import com.wora.models.entities.User;
 
 import java.sql.Connection;
@@ -50,8 +51,48 @@ public class UserRepository implements IUserRepository {
         } catch (SQLException e) {
             throw new RuntimeException("Login failed: " + e.getMessage());
         }
-
         return Optional.empty();
+    }
+
+    @Override
+    public Optional<User> findById(UUID userId) {
+        final String query = "SELECT * FROM users WHERE id = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setObject(1, userId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return Optional.of(mapToUser(rs));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to find user: " + e.getMessage());
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public User update(User user, UUID id) {
+        final String updateQuery = "UPDATE users SET name = ?, email = ?, last_name = ?, phone_number = ? WHERE id = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(updateQuery)) {
+            int count = 1;
+            stmt.setString(count++, user.getName());
+            stmt.setString(count++, user.getEmail());
+            stmt.setString(count++, user.getLastName());
+            stmt.setString(count++, user.getPhone_Number());
+            stmt.setObject(count, user.getId());
+            int affectedRows = stmt.executeUpdate();
+            if(affectedRows == 0){
+                throw new RuntimeException("the user not updated");
+            }
+
+            return findById(user.getId()).orElseThrow(
+                    () -> new RuntimeException("user with id " + user.getId() + "could not be found")
+            );
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
 
@@ -79,6 +120,7 @@ public class UserRepository implements IUserRepository {
         }
         return users;
     }
+
     private User mapToUser(ResultSet rs) throws SQLException {
         return new User(
                 UUID.fromString(rs.getString("id")),

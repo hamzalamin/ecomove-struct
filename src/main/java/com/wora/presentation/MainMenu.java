@@ -40,6 +40,7 @@ public class MainMenu {
             System.out.println("12. Update a Ticket");
             System.out.println("13. Delete a Ticket");
             System.out.println("14. Search for user ");
+            System.out.println("15. Update my account");
 
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
@@ -59,6 +60,7 @@ public class MainMenu {
                 case 12 -> ticketUi.update();
                 case 13 -> ticketUi.delete();
                 case 14 -> userUi.search();
+                case 15 -> userUi.update();
                 case 0 -> System.out.println("Exiting...");
                 default -> System.out.println("Invalid choice. Please try again.");
             }
