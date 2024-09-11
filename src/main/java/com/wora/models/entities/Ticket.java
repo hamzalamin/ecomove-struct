@@ -1,5 +1,7 @@
 package com.wora.models.entities;
 
+import com.wora.models.enums.TicketStatus;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -8,12 +10,14 @@ public class Ticket {
     private Double purchasePrice;
     private Double salePrice;
     private Date saleDate;
+    private TicketStatus ticketStatus;
 
-    public Ticket(UUID id, Double purchasePrice, Double salePrice, Date saleDate) {
+    public Ticket(UUID id, Double purchasePrice, Double salePrice, Date saleDate, TicketStatus ticketStatus) {
         this.id = id;
         this.purchasePrice = purchasePrice;
         this.salePrice = salePrice;
         this.saleDate = saleDate;
+        this.ticketStatus = ticketStatus;
     }
 
     public UUID getId() {
@@ -46,5 +50,13 @@ public class Ticket {
 
     public void setSaleDate(Date saleDate) {
         this.saleDate = saleDate;
+    }
+
+    public TicketStatus getTicketStatus() {
+        return ticketStatus;
+    }
+
+    public void setTicketStatus(TicketStatus ticketStatus) {
+        this.ticketStatus = ticketStatus;
     }
 }

@@ -4,6 +4,7 @@ CREATE TYPE transport_types AS ENUM ('PLANE', 'BUS', 'TRAIN');
 CREATE TYPE contract_status AS ENUM ('ACTIVE', 'INACTIVE', 'SUSPENDED');
 CREATE TYPE reduction_types AS ENUM ('PERCENTAGE', 'FIXED_AMOUNT');
 CREATE TYPE offer_status AS ENUM ('ACTIVE', 'EXPIRED', 'SUSPENDED');
+CREATE TYPE ticket_status AS ENUM ('SOLD', 'CANCELED', 'PENDING');
 
 CREATE TABLE partners (
     id UUID PRIMARY KEY,
@@ -42,42 +43,57 @@ CREATE TABLE offers (
     contact_id UUID REFERENCES contracts(id)
 );
 
+CREATE TABLE stations(
+    id UUID PRIMARY KEY,
+    station_name VARCHAR(255),
+    city VARCHAR(255)
+);
+
+CREATE TABLE routes(
+    id UUID PRIMARY KEY,
+    departed_id UUID REFERENCES stations(id),
+    destination_id UUID REFERENCES stations(id),
+    distance FLOAT
+);
+
 
 CREATE TABLE tickets (
     id UUID PRIMARY KEY,
     purchase_price FLOAT,
     sale_price FLOAT,
-    sale_date DATE
+    sale_date DATE,
+    ticket_status ticket_status,
+    route_id UUID REFERENCES routes(id)
 );
 
-CREATE TABLE route(
+CREATE TABLE users (
     id UUID PRIMARY KEY,
-    departed VARCHAR(255),
-    destination VARCHAR(255),
-    duration TIME,
-    ticket_id UUID REFERENCES tickets(id)
-);
-
-CREATE TABLE users(
-    id UUID,
     name VARCHAR(255),
     last_name VARCHAR(255),
     email VARCHAR(255),
     phone_number VARCHAR(255)
 );
 
-CREATE TABLE booking(
-    id UUID,
-    departed VARCHAR(255),
+CREATE TABLE bookings (
+    id UUID PRIMARY KEY,
+    departure VARCHAR(255),
     destination VARCHAR(255),
-    departed_date DATE,
-    price FLOAT,
     user_id UUID REFERENCES users(id)
 );
 
-
-CREATE TABLE tickets_clients(
-    id UUID,
-    ticket_id UUID REFERENCES tickets(id),
-    booking_id UUID REFERENCES booking(id)
+CREATE TABLE favorites (
+    id UUID PRIMARY KEY,
+    departure VARCHAR(255),
+    destination VARCHAR(255),
+    date DATE,
+    user_id UUID REFERENCES users(id)
 );
+
+CREATE TABLE tickets_booking(
+    id UUID PRIMARY KEY,
+    ticket_id UUID REFERENCES tickets(id),
+    booking_id UUID REFERENCES bookings(id)
+);
+
+
+

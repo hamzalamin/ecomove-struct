@@ -3,6 +3,7 @@ package com.wora.repositories;
 import com.wora.config.JdbcConnection;
 import com.wora.models.dtos.CreateTicketDto;
 import com.wora.models.entities.Ticket;
+import com.wora.models.enums.TicketStatus;
 
 import java.sql.*;
 import java.util.*;
@@ -48,9 +49,9 @@ public class TicketRepository implements ITicketRepository {
     public void create(CreateTicketDto dto){
         final String query = "INSERT INTO "
                 + tableName +
-                " (purchase_price, sale_price, sale_date, id)" +
+                " (purchase_price, sale_price, sale_date,ticket_status, id)" +
                 "VALUES" +
-                "(?, ?, ?, ?::uuid)";
+                "(?, ?, ?,?::ticket_status, ?::uuid)";
         try (final PreparedStatement stmt = connection.prepareStatement(query)){
             mapToResultSet(dto, stmt);
             int rowsAffected = stmt.executeUpdate();
@@ -70,7 +71,8 @@ public class TicketRepository implements ITicketRepository {
                 UPDATE tickets
                 SET purchase_price = ?,
                 sale_price = ?,
-                sale_date = ?
+                sale_date = ?,
+                ticket_status = ?::ticket_status
                 WHERE id = ?::uuid
                 """;
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -108,7 +110,8 @@ public class TicketRepository implements ITicketRepository {
                 (UUID) rs.getObject("id"),
                 rs.getDouble("purchase_price"),
                 rs.getDouble("sale_price"),
-                rs.getDate("sale_date")
+                rs.getDate("sale_date"),
+                TicketStatus.valueOf(rs.getString("ticket_status"))
         );
     }
 
@@ -117,6 +120,7 @@ public class TicketRepository implements ITicketRepository {
         stmt.setDouble(count++, dto.purchasePrice());
         stmt.setDouble(count++,  dto.salePrice());
         stmt.setTimestamp(count++, new Timestamp(dto.saleDate().getTime()));
+        stmt.setString(count++, dto.ticketStatus().toString());
         stmt.setObject(count++, UUID.randomUUID());
     }
 }

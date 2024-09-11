@@ -23,7 +23,7 @@ public class ContractService implements IContractService {
     @Override
     public Contract findById(String id) {
         return repository.findById(UUID.fromString(id))
-                .orElseThrow(() -> new RuntimeException("i'm here motherfucker"));
+                .orElseThrow(() -> new RuntimeException("Ok"));
     }
 
     @Override

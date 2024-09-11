@@ -32,7 +32,11 @@ public class Main {
         ITicketService ticketService = new TicketService(ticketRepository);
         TicketUi ticketUi = new TicketUi(ticketService);
 
-        MainMenu mainMenu = new MainMenu(partnerUi,contractUi,offerUi, ticketUi, userUi);
+        IStationRepository stationRepository = new StationRepository();
+        IStationService stationService = new StationService(stationRepository);
+        StationUi stationUi = new StationUi(stationService);
+
+        MainMenu mainMenu = new MainMenu(partnerUi,contractUi,offerUi, ticketUi, userUi, stationUi);
         userUi.setMainMenu(mainMenu);
 
 

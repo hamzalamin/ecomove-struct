@@ -1,21 +1,18 @@
 package com.wora.models.entities;
 
-import java.sql.Time;
 import java.util.UUID;
 
 public class Route {
     private UUID id;
-    private String departure;
-    private String destination;
-    private Time duration;
-    private Ticket ticket;
+    private Station departed;
+    private Station destination;
+    private Double distance;
 
-    public Route(UUID id, String departure, String destination, Time duration, Ticket ticket) {
+    public Route(UUID id, Station departed, Station destination, Double distance) {
         this.id = id;
-        this.departure = departure;
+        this.departed = departed;
         this.destination = destination;
-        this.duration = duration;
-        this.ticket = ticket;
+        this.distance = distance;
     }
 
     public UUID getId() {
@@ -26,35 +23,27 @@ public class Route {
         this.id = id;
     }
 
-    public String getDeparture() {
-        return departure;
+    public Station getDeparted() {
+        return departed;
     }
 
-    public void setDeparture(String departure) {
-        this.departure = departure;
+    public void setDeparted(Station departed) {
+        this.departed = departed;
     }
 
-    public String getDestination() {
+    public Station getDestination() {
         return destination;
     }
 
-    public void setDestination(String destination) {
+    public void setDestination(Station destination) {
         this.destination = destination;
     }
 
-    public Time getDuration() {
-        return duration;
+    public Double getDistance() {
+        return distance;
     }
 
-    public void setDuration(Time duration) {
-        this.duration = duration;
-    }
-
-    public Ticket getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
+    public void setDistance(Double distance) {
+        this.distance = distance;
     }
 }

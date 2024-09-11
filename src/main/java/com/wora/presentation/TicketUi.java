@@ -1,19 +1,13 @@
 package com.wora.presentation;
-
-import com.wora.models.dtos.CreateOfferDto;
 import com.wora.models.dtos.CreateTicketDto;
 import com.wora.models.entities.Ticket;
-import com.wora.services.ContractService;
+import com.wora.models.enums.TicketStatus;
 import com.wora.services.ITicketService;
-import com.wora.services.OfferService;
-import com.wora.services.TicketService;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-import java.util.UUID;
-
 import static com.wora.utli.InputScanner.scanDate;
+
 
 public class TicketUi {
     private final ITicketService service;
@@ -34,11 +28,14 @@ public class TicketUi {
             Double salePrice = scanner.nextDouble();
             java.util.Date saleDate = scanDate("Enter start date (YYYY-MM-DD):");
 
+            System.out.println("enter the Offre States(SOLD, CANCLED, PENDING): ");
+            TicketStatus ticketStatus = TicketStatus.valueOf(scanner.nextLine().toUpperCase());
 
             CreateTicketDto dto = new CreateTicketDto(
                     purchasePrice,
                     salePrice,
-                    saleDate
+                    saleDate,
+                    ticketStatus
             );
             service.create(dto);
 
@@ -84,10 +81,18 @@ public class TicketUi {
             if (saleDate != null){
                 existTicket.setSaleDate(saleDate);
             }
+
+            scanner.nextLine();
+            System.out.print("Enter new Offer Status ( ACTIVE, EXPIRED, SUSPENDED) (or press Enter to keep it the same): ");
+            TicketStatus ticketStatus = TicketStatus.valueOf(scanner.nextLine());
+            if (ticketStatus != null) {
+                existTicket.setTicketStatus(ticketStatus);
+            }
             CreateTicketDto dto = new CreateTicketDto(
                     purchasePrice,
                     salePrice,
-                    saleDate
+                    saleDate,
+                    ticketStatus
             );
             service.update(dto, existTicket.getId());
             System.out.println("offre updated successfully.");

@@ -1,5 +1,6 @@
 package com.wora.presentation;
 
+import com.sun.source.tree.CaseTree;
 import com.wora.repositories.*;
 import com.wora.services.*;
 
@@ -13,13 +14,15 @@ public class MainMenu {
     private final OfferUi offerUi;
     private final TicketUi ticketUi;
     private final UserUi userUi;
+    private final StationUi stationUi;
 
-    public MainMenu(PartnerUi partnerUi, ContractUi contractUi, OfferUi offerUi, TicketUi ticketUi, UserUi userUi) {
+    public MainMenu(PartnerUi partnerUi, ContractUi contractUi, OfferUi offerUi, TicketUi ticketUi, UserUi userUi, StationUi stationUi) {
         this.partnerUi = partnerUi;
         this.contractUi = contractUi;
         this.offerUi = offerUi;
         this.ticketUi = ticketUi;
         this.userUi = userUi;
+        this.stationUi = stationUi;
     }
 
     public void showMenu() throws SQLException {
@@ -41,6 +44,9 @@ public class MainMenu {
             System.out.println("13. Delete a Ticket");
             System.out.println("14. Search for user ");
             System.out.println("15. Update my account");
+            System.out.println("16. Create new station");
+            System.out.println("17. Update station");
+            System.out.println("18. Delete station");
 
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
@@ -61,6 +67,10 @@ public class MainMenu {
                 case 13 -> ticketUi.delete();
                 case 14 -> userUi.search();
                 case 15 -> userUi.update();
+                case 16 -> stationUi.create();
+                case 17 -> stationUi.update();
+                case 18 ->stationUi.delete();
+
                 case 0 -> System.out.println("Exiting...");
                 default -> System.out.println("Invalid choice. Please try again.");
             }
