@@ -11,13 +11,15 @@ public class Ticket {
     private Double salePrice;
     private Date saleDate;
     private TicketStatus ticketStatus;
+    private Route routeId;
 
-    public Ticket(UUID id, Double purchasePrice, Double salePrice, Date saleDate, TicketStatus ticketStatus) {
+    public Ticket(UUID id, Double purchasePrice, Double salePrice, Date saleDate, TicketStatus ticketStatus, Route routeId) {
         this.id = id;
         this.purchasePrice = purchasePrice;
         this.salePrice = salePrice;
         this.saleDate = saleDate;
         this.ticketStatus = ticketStatus;
+        this.routeId = routeId;
     }
 
     public UUID getId() {
@@ -58,5 +60,13 @@ public class Ticket {
 
     public void setTicketStatus(TicketStatus ticketStatus) {
         this.ticketStatus = ticketStatus;
+    }
+
+    public Route getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(Route routeId) {
+        this.routeId = routeId;
     }
 }

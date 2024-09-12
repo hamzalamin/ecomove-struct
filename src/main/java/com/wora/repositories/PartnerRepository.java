@@ -8,7 +8,6 @@ import com.wora.models.enums.TransportType;
 
 import java.sql.*;
 import java.util.*;
-//import java.util.Date;
 import java.sql.Date;
 
 public class PartnerRepository implements IPartnerRepository {

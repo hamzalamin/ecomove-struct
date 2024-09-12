@@ -6,6 +6,8 @@ import com.wora.services.ITicketService;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
+
 import static com.wora.utli.InputScanner.scanDate;
 
 
@@ -28,14 +30,19 @@ public class TicketUi {
             Double salePrice = scanner.nextDouble();
             java.util.Date saleDate = scanDate("Enter start date (YYYY-MM-DD):");
 
+            scanner.nextLine();
             System.out.println("enter the Offre States(SOLD, CANCLED, PENDING): ");
             TicketStatus ticketStatus = TicketStatus.valueOf(scanner.nextLine().toUpperCase());
+
+            System.out.println("enter the Id of route: ");
+            UUID routeId = UUID.fromString(scanner.nextLine().toString());
 
             CreateTicketDto dto = new CreateTicketDto(
                     purchasePrice,
                     salePrice,
                     saleDate,
-                    ticketStatus
+                    ticketStatus,
+                    routeId
             );
             service.create(dto);
 
@@ -88,11 +95,16 @@ public class TicketUi {
             if (ticketStatus != null) {
                 existTicket.setTicketStatus(ticketStatus);
             }
+
+            System.out.println("enter the Id of route: ");
+            UUID routeId = UUID.fromString(scanner.nextLine().toString());
+
             CreateTicketDto dto = new CreateTicketDto(
                     purchasePrice,
                     salePrice,
                     saleDate,
-                    ticketStatus
+                    ticketStatus,
+                    routeId
             );
             service.update(dto, existTicket.getId());
             System.out.println("offre updated successfully.");

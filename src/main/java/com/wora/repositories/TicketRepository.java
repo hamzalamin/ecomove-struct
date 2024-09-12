@@ -2,11 +2,15 @@ package com.wora.repositories;
 
 import com.wora.config.JdbcConnection;
 import com.wora.models.dtos.CreateTicketDto;
+import com.wora.models.entities.Contract;
+import com.wora.models.entities.Route;
 import com.wora.models.entities.Ticket;
+import com.wora.models.enums.ContractStatus;
 import com.wora.models.enums.TicketStatus;
 
 import java.sql.*;
 import java.util.*;
+import java.util.Date;
 
 public class TicketRepository implements ITicketRepository {
     private final Connection connection = JdbcConnection.getInstance().getConnection();
@@ -49,9 +53,9 @@ public class TicketRepository implements ITicketRepository {
     public void create(CreateTicketDto dto){
         final String query = "INSERT INTO "
                 + tableName +
-                " (purchase_price, sale_price, sale_date,ticket_status, id)" +
+                " (purchase_price, sale_price, sale_date,ticket_status, route_id ,id)" +
                 "VALUES" +
-                "(?, ?, ?,?::ticket_status, ?::uuid)";
+                "(?, ?, ?,?::ticket_status,?::uuid , ?::uuid)";
         try (final PreparedStatement stmt = connection.prepareStatement(query)){
             mapToResultSet(dto, stmt);
             int rowsAffected = stmt.executeUpdate();
@@ -72,7 +76,8 @@ public class TicketRepository implements ITicketRepository {
                 SET purchase_price = ?,
                 sale_price = ?,
                 sale_date = ?,
-                ticket_status = ?::ticket_status
+                ticket_status = ?::ticket_status,
+                route_id = ?::uuid
                 WHERE id = ?::uuid
                 """;
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -111,7 +116,12 @@ public class TicketRepository implements ITicketRepository {
                 rs.getDouble("purchase_price"),
                 rs.getDouble("sale_price"),
                 rs.getDate("sale_date"),
-                TicketStatus.valueOf(rs.getString("ticket_status"))
+                TicketStatus.valueOf(rs.getString("ticket_status")),
+                new Route(
+                        UUID.fromString(rs.getString("departed_id")),
+                        UUID.fromString(rs.getString("destination_id")),
+                        rs.getDouble("distance")
+                )
         );
     }
 
@@ -121,6 +131,7 @@ public class TicketRepository implements ITicketRepository {
         stmt.setDouble(count++,  dto.salePrice());
         stmt.setTimestamp(count++, new Timestamp(dto.saleDate().getTime()));
         stmt.setString(count++, dto.ticketStatus().toString());
+        stmt.setObject(count++, dto.routeId());
         stmt.setObject(count++, UUID.randomUUID());
     }
 }

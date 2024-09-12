@@ -1,9 +1,5 @@
 package com.wora.presentation;
 
-import com.sun.source.tree.CaseTree;
-import com.wora.repositories.*;
-import com.wora.services.*;
-
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -15,14 +11,16 @@ public class MainMenu {
     private final TicketUi ticketUi;
     private final UserUi userUi;
     private final StationUi stationUi;
+    private final RouteUi routeUi;
 
-    public MainMenu(PartnerUi partnerUi, ContractUi contractUi, OfferUi offerUi, TicketUi ticketUi, UserUi userUi, StationUi stationUi) {
+    public MainMenu(PartnerUi partnerUi, ContractUi contractUi, OfferUi offerUi, TicketUi ticketUi, UserUi userUi, StationUi stationUi, RouteUi routeUi) {
         this.partnerUi = partnerUi;
         this.contractUi = contractUi;
         this.offerUi = offerUi;
         this.ticketUi = ticketUi;
         this.userUi = userUi;
         this.stationUi = stationUi;
+        this.routeUi = routeUi;
     }
 
     public void showMenu() throws SQLException {
@@ -47,6 +45,11 @@ public class MainMenu {
             System.out.println("16. Create new station");
             System.out.println("17. Update station");
             System.out.println("18. Delete station");
+            System.out.println("19. Create Route");
+            System.out.println("20. Update Route");
+            System.out.println("21. Delete Route");
+            System.out.println("22. Display All Routes");
+            System.out.println("23. Git Route By id");
 
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
@@ -70,6 +73,11 @@ public class MainMenu {
                 case 16 -> stationUi.create();
                 case 17 -> stationUi.update();
                 case 18 ->stationUi.delete();
+                case 19 ->routeUi.create();
+                case 20 ->routeUi.update();
+                case 21 ->routeUi.delete();
+                case 22 ->routeUi.displayAllRoutes();
+                case 23 ->routeUi.displayRouteById();
 
                 case 0 -> System.out.println("Exiting...");
                 default -> System.out.println("Invalid choice. Please try again.");

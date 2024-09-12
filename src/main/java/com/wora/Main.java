@@ -36,7 +36,11 @@ public class Main {
         IStationService stationService = new StationService(stationRepository);
         StationUi stationUi = new StationUi(stationService);
 
-        MainMenu mainMenu = new MainMenu(partnerUi,contractUi,offerUi, ticketUi, userUi, stationUi);
+        IRouteRepository routeRepository = new RouteRepository();
+        IRouteService routeService = new RouteService(routeRepository);
+        RouteUi routeUi = new RouteUi(routeService, stationService);
+
+        MainMenu mainMenu = new MainMenu(partnerUi,contractUi,offerUi, ticketUi, userUi, stationUi, routeUi);
         userUi.setMainMenu(mainMenu);
 
 

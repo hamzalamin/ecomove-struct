@@ -4,14 +4,20 @@ import java.util.UUID;
 
 public class Route {
     private UUID id;
-    private Station departed;
-    private Station destination;
+    private UUID departedId;
+    private UUID destinationId;
     private Double distance;
 
-    public Route(UUID id, Station departed, Station destination, Double distance) {
+    public Route(UUID id, UUID departedId, UUID destinationId, Double distance) {
         this.id = id;
-        this.departed = departed;
-        this.destination = destination;
+        this.departedId = departedId;
+        this.destinationId = destinationId;
+        this.distance = distance;
+    }
+
+    public Route(UUID departedId, UUID destinationId, Double distance) {
+        this.departedId = departedId;
+        this.destinationId = destinationId;
         this.distance = distance;
     }
 
@@ -23,20 +29,20 @@ public class Route {
         this.id = id;
     }
 
-    public Station getDeparted() {
-        return departed;
+    public UUID getDepartedId() {
+        return departedId;
     }
 
-    public void setDeparted(Station departed) {
-        this.departed = departed;
+    public void setDepartedId(UUID departedId) {
+        this.departedId = this.departedId;
     }
 
-    public Station getDestination() {
-        return destination;
+    public UUID getDestinationId() {
+        return destinationId;
     }
 
-    public void setDestination(Station destination) {
-        this.destination = destination;
+    public void setDestinationId(UUID destinationId) {
+        this.destinationId = destinationId;
     }
 
     public Double getDistance() {
