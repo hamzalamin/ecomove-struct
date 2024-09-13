@@ -14,4 +14,6 @@ public interface IRouteService {
     Route create(CreateRouteDto dto) throws SQLException;
     Route update(CreateRouteDto dto, UUID id) throws SQLException;
     void delete(UUID id) throws SQLException;
+    List<UUID> findShortestPath(UUID startStationId, UUID endStationId);
+    Route getRouteByStationIds(UUID departedId, UUID destinationId);
 }

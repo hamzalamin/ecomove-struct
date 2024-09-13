@@ -76,9 +76,8 @@ CREATE TABLE users (
 
 CREATE TABLE bookings (
     id UUID PRIMARY KEY,
-    departure VARCHAR(255),
-    destination VARCHAR(255),
     user_id UUID REFERENCES users(id)
+
 );
 
 CREATE TABLE favorites (

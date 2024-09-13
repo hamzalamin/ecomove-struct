@@ -12,4 +12,5 @@ public interface IRouteRepository {
     Route create(Route route) throws SQLException;
     Route update(Route route, UUID id) throws SQLException;
     void delete(UUID id);
+    Route getRouteByStationIds(UUID departedId, UUID destinationId);
 }

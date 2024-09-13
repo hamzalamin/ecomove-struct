@@ -53,7 +53,7 @@ public class PartnerRepository implements IPartnerRepository {
     public void create(CreatePartnerDto dto) {
         final String query = """
                 INSERT INTO partners
-                (company_name, contact, geographical_zone, special_condition, partner_status, transport_type, creation_date,id)
+                (company_name, contact, geographic_zone, special_conditions, partner_status, transport_type, creation_date,id)
                 VALUES (?, ?, ?, ?, ?::partner_status, ?::transport_types ,? , ?::uuid)
                 """;
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -71,8 +71,8 @@ public class PartnerRepository implements IPartnerRepository {
                 UPDATE partners
                 SET company_name = ?,
                 contact = ?,
-                geographical_zone = ?,
-                special_condition = ?,
+                geographic_zone = ?,
+                special_conditions = ?,
                 partner_status = ?::partner_status,
                 transport_type = ?::transport_types,
                 creation_date = ?
@@ -116,8 +116,8 @@ public class PartnerRepository implements IPartnerRepository {
                 UUID.fromString(rs.getString("id")),
                 rs.getString("company_name"),
                 rs.getString("contact"),
-                rs.getString("special_condition"),
-                rs.getString("geographical_zone"),
+                rs.getString("special_conditions"),
+                rs.getString("geographic_zone"),
                 PartnerStatus.valueOf(rs.getString("partner_status")),
                 TransportType.valueOf(rs.getString("transport_type")),
                 new Date(rs.getTimestamp("creation_date").getTime()),

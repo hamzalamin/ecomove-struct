@@ -3,10 +3,8 @@ import com.wora.models.dtos.CreateTicketDto;
 import com.wora.models.entities.Ticket;
 import com.wora.models.enums.TicketStatus;
 import com.wora.services.ITicketService;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
-import java.util.UUID;
+
+import java.util.*;
 
 import static com.wora.utli.InputScanner.scanDate;
 
@@ -50,7 +48,6 @@ public class TicketUi {
             throw new RuntimeException(e);
         }
     }
-
 
     public void update() {
         Scanner scanner = new Scanner(System.in);

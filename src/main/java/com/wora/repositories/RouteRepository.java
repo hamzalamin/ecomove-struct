@@ -102,5 +102,27 @@ public class RouteRepository implements IRouteRepository{
             throw new RuntimeException(e);
         }
     }
+    @Override
+    public Route getRouteByStationIds(UUID departedId, UUID destinationId) {
+        final String query = "SELECT * FROM routes WHERE departed_id = ?::uuid AND destination_id = ?::uuid";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setObject(1, departedId);
+            stmt.setObject(2, destinationId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Route(
+                        UUID.fromString(rs.getString("id")),
+                        UUID.fromString(rs.getString("departed_id")),
+                        UUID.fromString(rs.getString("destination_id")),
+                        rs.getDouble("distance")
+                );
+            } else {
+                throw new RuntimeException("Route not found for the given station IDs.");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to retrieve route: " + e.getMessage(), e);
+        }
+    }
+
 
 }

@@ -1,19 +1,48 @@
 package com.wora.services;
 
 import com.wora.models.dtos.CreateRouteDto;
+import com.wora.models.entities.Graph;
 import com.wora.models.entities.Route;
+import com.wora.models.entities.Station;
 import com.wora.repositories.IRouteRepository;
+import com.wora.repositories.IStationRepository;
+import com.wora.repositories.RouteRepository;
 
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 public class RouteService implements IRouteService{
     private final IRouteRepository repository;
+    private final IStationRepository stationRepository;
+    private final Graph graph;
+    IRouteRepository routeRepository = new RouteRepository();
+    private final Map<UUID, Station> stationMap = new HashMap<>();
 
-    public RouteService(IRouteRepository repository) {
+    public RouteService(IRouteRepository repository, IStationRepository stationRepository) {
         this.repository = repository;
+        this.stationRepository = stationRepository;
+        this.graph = new Graph();
+        
+        initializeGraph();
+
+    }
+
+    private void initializeGraph() {
+        List<Route> routes = routeRepository.findAll();
+        List<Station> stations = stationRepository.findAll();
+
+        for (Station station : stations) {
+            graph.addStation(station);
+        }
+
+        for (Route route : routes) {
+            graph.addRoute(route);
+        }
+    }
+
+    @Override
+    public List<UUID> findShortestPath(UUID startStationId, UUID endStationId) {
+        return graph.findShortestPath(startStationId, endStationId);
     }
 
     @Override
@@ -54,5 +83,9 @@ public class RouteService implements IRouteService{
         } else {
             throw new RuntimeException("the route with id " + id +" is not found");
         }
+    }
+    @Override
+    public Route getRouteByStationIds(UUID departedId, UUID destinationId) {
+        return repository.getRouteByStationIds(departedId, destinationId);
     }
 }

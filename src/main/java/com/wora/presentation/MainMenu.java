@@ -50,6 +50,7 @@ public class MainMenu {
             System.out.println("21. Delete Route");
             System.out.println("22. Display All Routes");
             System.out.println("23. Git Route By id");
+            System.out.println("24. Search for Tickets");
 
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
@@ -78,6 +79,7 @@ public class MainMenu {
                 case 21 ->routeUi.delete();
                 case 22 ->routeUi.displayAllRoutes();
                 case 23 ->routeUi.displayRouteById();
+                case 24 ->routeUi.start();
 
                 case 0 -> System.out.println("Exiting...");
                 default -> System.out.println("Invalid choice. Please try again.");
