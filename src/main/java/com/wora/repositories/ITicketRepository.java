@@ -13,5 +13,7 @@ public interface ITicketRepository {
     void create(CreateTicketDto dto);
     void update(CreateTicketDto dto);
     void delete(UUID id);
+    void addTicketToBooking(UUID ticketId, UUID bookingId);
+    List<Ticket> getTicketsByRouteId(UUID routeId);
 
 }

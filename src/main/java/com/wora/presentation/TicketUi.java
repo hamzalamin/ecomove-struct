@@ -137,7 +137,7 @@ public class TicketUi {
             } else {
                 System.out.println("Error: The selected Contract does not have a valid ID.");
             }
-            System.out.println("offre delete successfully.");
+            System.out.println("offer delete successfully.");
 
         } catch (Exception e) {
             throw new RuntimeException(e);

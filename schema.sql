@@ -80,6 +80,12 @@ CREATE TABLE bookings (
 
 );
 
+CREATE TABLE tickets_booking(
+    id UUID PRIMARY KEY,
+    ticket_id UUID REFERENCES tickets(id),
+    booking_id UUID REFERENCES bookings(id)
+);
+
 CREATE TABLE favorites (
     id UUID PRIMARY KEY,
     departure VARCHAR(255),
@@ -88,11 +94,7 @@ CREATE TABLE favorites (
     user_id UUID REFERENCES users(id)
 );
 
-CREATE TABLE tickets_booking(
-    id UUID PRIMARY KEY,
-    ticket_id UUID REFERENCES tickets(id),
-    booking_id UUID REFERENCES bookings(id)
-);
+
 
 
 

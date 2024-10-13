@@ -12,7 +12,8 @@ import java.util.UUID;
 public interface IBookingService {
     List<Booking> findAll();
     Booking findById(UUID id);
-    void create(CreateBookingDto dto);
+    UUID create(CreateBookingDto dto);
     void update(UUID id, CreateBookingDto dto);
     void delete(String id);
+    void addTicketToBooking(UUID id, UUID bookingId);
 }

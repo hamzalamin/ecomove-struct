@@ -25,9 +25,10 @@ public class BookingService implements IBookingService {
     }
 
     @Override
-    public void create(CreateBookingDto dto) {
-        repository.create(dto);
+    public UUID create(CreateBookingDto dto) {
+        return repository.create(dto);
     }
+
 
     @Override
     public void update( UUID id, CreateBookingDto dto) {
@@ -40,5 +41,9 @@ public class BookingService implements IBookingService {
         repository.delete(UUID.fromString(id));
     }
 
+    @Override
+    public void addTicketToBooking(UUID ticketId, UUID bookingId) {
+        repository.addTicketToBooking(ticketId, bookingId);
+    }
 
 }

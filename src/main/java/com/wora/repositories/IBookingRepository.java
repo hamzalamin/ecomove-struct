@@ -10,7 +10,8 @@ import java.util.UUID;
 public interface IBookingRepository {
     List<Booking> findAll();
     Optional<Booking> findById(UUID id);
-    void create(CreateBookingDto dto);
+    UUID create(CreateBookingDto dto);
     void update(UUID id , CreateBookingDto dto);
     void delete(UUID id);
+    void addTicketToBooking(UUID ticketId, UUID bookingId);
 }

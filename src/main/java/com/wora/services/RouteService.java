@@ -81,7 +81,7 @@ public class RouteService implements IRouteService{
         if (routeOptional.isPresent()){
             repository.delete(id);
         } else {
-            throw new RuntimeException("the route with id " + id +" is not found");
+            throw new RuntimeException("the route with id " + id + " is not found");
         }
     }
     @Override

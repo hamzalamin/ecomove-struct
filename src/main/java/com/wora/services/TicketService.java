@@ -40,4 +40,9 @@ public class TicketService implements ITicketService {
     public void delete(String id) {
         repository.delete(UUID.fromString(id));
     }
+
+    @Override
+    public List<Ticket> ticketsByRouteId(UUID routeId) {
+        return repository.getTicketsByRouteId(routeId);
+    }
 }

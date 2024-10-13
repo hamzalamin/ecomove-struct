@@ -13,4 +13,5 @@ public interface ITicketService {
     void create(CreateTicketDto dto);
     void update(CreateTicketDto dto, UUID id);
     void delete(String id);
+    List<Ticket> ticketsByRouteId(UUID routeId);
 }

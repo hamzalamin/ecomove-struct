@@ -2,15 +2,12 @@ package com.wora.repositories;
 
 import com.wora.config.JdbcConnection;
 import com.wora.models.dtos.CreateTicketDto;
-import com.wora.models.entities.Contract;
 import com.wora.models.entities.Route;
 import com.wora.models.entities.Ticket;
-import com.wora.models.enums.ContractStatus;
 import com.wora.models.enums.TicketStatus;
 
 import java.sql.*;
 import java.util.*;
-import java.util.Date;
 
 public class TicketRepository implements ITicketRepository {
     private final Connection connection = JdbcConnection.getInstance().getConnection();
@@ -110,6 +107,26 @@ public class TicketRepository implements ITicketRepository {
 
     }
 
+    @Override
+    public List<Ticket> getTicketsByRouteId(UUID routeId) {
+        final String query = "SELECT * FROM tickets INNER JOIN routes ON tickets.route_id = routes.id WHERE route_id = ?";
+        List<Ticket> tickets = new ArrayList<>();
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setObject(1, routeId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                tickets.add(mapToResulrSet(rs));
+            }
+            return tickets;
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to execute query to find tickets by route ID: " + e.getMessage());
+        }
+    }
+
+
+
+
     private Ticket mapToResulrSet(ResultSet rs) throws SQLException {
         return new Ticket(
                 (UUID) rs.getObject("id"),
@@ -134,4 +151,19 @@ public class TicketRepository implements ITicketRepository {
         stmt.setObject(count++, dto.routeId());
         stmt.setObject(count++, UUID.randomUUID());
     }
+
+    @Override
+    public void addTicketToBooking(UUID ticketId, UUID bookingId) {
+            final String query = "INSERT INTO tickets_booking (ticket_id, booking_id) VALUES (?::uuid, ?::uuid)";
+            try (PreparedStatement stmt = connection.prepareStatement(query)) {
+                stmt.setObject(1, ticketId);
+                stmt.setObject(2, bookingId);
+                stmt.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException("Failed to associate ticket with booking", e);
+            }
+    }
+
+
+
 }

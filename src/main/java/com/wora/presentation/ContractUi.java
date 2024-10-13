@@ -61,7 +61,6 @@ public class ContractUi {
     }
 
 
-
     public void create() {
         Scanner scanner = new Scanner(System.in);
 
@@ -99,17 +98,17 @@ public class ContractUi {
     public void update() {
         try {
             List<Contract> contracts = service.findAll();
-            if (contracts.isEmpty()){
+            if (contracts.isEmpty()) {
                 System.out.println("no contract found");
                 return;
             }
-            for (int contract = 0 ; contract < contracts.size(); contract++){
-                System.out.println((contract + 1) + " . " + contracts.get(contract).getId() + " (ID: "  + contracts.get(contract).getId() + ")");
+            for (int contract = 0; contract < contracts.size(); contract++) {
+                System.out.println((contract + 1) + " . " + contracts.get(contract).getId() + " (ID: " + contracts.get(contract).getId() + ")");
             }
             System.out.println("Enter the number you want to update : ");
             int index = scanner.nextInt();
 
-            if (index < 1 || index > contracts.size()){
+            if (index < 1 || index > contracts.size()) {
                 System.out.println("Invalid selection.");
                 return;
             }
@@ -119,7 +118,7 @@ public class ContractUi {
             scanner.nextLine();
             System.out.println("Enter new special Condition (or press Enter to keep it the same):");
             Double specialCondition = scanner.nextDouble();
-            if (specialCondition != null){
+            if (specialCondition != null) {
                 existContract.setSpecialCondition(specialCondition);
             }
 
@@ -147,7 +146,7 @@ public class ContractUi {
             PartnerRepository repository = new PartnerRepository();
             PartnerService partnerService = new PartnerService(repository);
             Partner partner = partnerService.findById(partnerId.toString());
-            if (partner != null){
+            if (partner != null) {
                 existContract.setPartner(partner);
             }
 
@@ -172,17 +171,17 @@ public class ContractUi {
     public void delete() {
         try {
             List<Contract> contracts = service.findAll();
-            if (contracts.isEmpty()){
+            if (contracts.isEmpty()) {
                 System.out.println("no contract found");
                 return;
             }
-            for (int contract = 0 ; contract < contracts.size(); contract++){
-                System.out.println((contract + 1) + " . " + contracts.get(contract).getStartDate() + " (ID: "  + contracts.get(contract).getId() + ")");
+            for (int contract = 0; contract < contracts.size(); contract++) {
+                System.out.println((contract + 1) + " . " + contracts.get(contract).getStartDate() + " (ID: " + contracts.get(contract).getId() + ")");
             }
             System.out.println("Enter the number you want to update : ");
             int index = scanner.nextInt();
 
-            if (index < 1 || index > contracts.size()){
+            if (index < 1 || index > contracts.size()) {
                 System.out.println("Invalid selection.");
                 return;
             }

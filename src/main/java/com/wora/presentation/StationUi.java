@@ -78,19 +78,7 @@ public class StationUi {
                     city
             );
             service.update(dto, existStation.getId());
-            try {
-                Station updatedStation = service.update(dto, existStation.getId());
-                System.out.println("-----------------------------------------------------");
-                System.out.println("Station created successfully!");
-                System.out.println("-----------------------------------------------------");
-                System.out.println("Created Station ID: " + updatedStation.getId());
-                System.out.println("Station Name: " + updatedStation.getStationName());
-                System.out.println("City: " + updatedStation.getCity());
-                System.out.println("-----------------------------------------------------");
 
-            } catch (Exception e) {
-                System.out.println("Error creating station: " + e.getMessage());
-            }
     } catch (Exception e) {
             throw new RuntimeException(e);
         }

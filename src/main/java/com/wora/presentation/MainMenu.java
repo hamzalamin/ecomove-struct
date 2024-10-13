@@ -12,8 +12,9 @@ public class MainMenu {
     private final UserUi userUi;
     private final StationUi stationUi;
     private final RouteUi routeUi;
+    private final BookingUi bookingUi;
 
-    public MainMenu(PartnerUi partnerUi, ContractUi contractUi, OfferUi offerUi, TicketUi ticketUi, UserUi userUi, StationUi stationUi, RouteUi routeUi) {
+    public MainMenu(PartnerUi partnerUi, ContractUi contractUi, OfferUi offerUi, TicketUi ticketUi, UserUi userUi, StationUi stationUi, RouteUi routeUi, BookingUi bookingUi) {
         this.partnerUi = partnerUi;
         this.contractUi = contractUi;
         this.offerUi = offerUi;
@@ -21,6 +22,7 @@ public class MainMenu {
         this.userUi = userUi;
         this.stationUi = stationUi;
         this.routeUi = routeUi;
+        this.bookingUi = bookingUi;
     }
 
     public void showMenu() throws SQLException {
@@ -51,7 +53,7 @@ public class MainMenu {
             System.out.println("22. Display All Routes");
             System.out.println("23. Git Route By id");
             System.out.println("24. Search for Tickets");
-
+            System.out.println("25. Booking");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
@@ -80,6 +82,7 @@ public class MainMenu {
                 case 22 ->routeUi.displayAllRoutes();
                 case 23 ->routeUi.displayRouteById();
                 case 24 ->routeUi.start();
+//                case 25 ->bookingUi.create();
 
                 case 0 -> System.out.println("Exiting...");
                 default -> System.out.println("Invalid choice. Please try again.");

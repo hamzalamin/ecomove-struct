@@ -36,11 +36,17 @@ public class Main {
         IStationService stationService = new StationService(stationRepository);
         StationUi stationUi = new StationUi(stationService);
 
+        IBookingRepository bookingRepository = new BookingRepository();
+        IBookingService bookingService = new BookingService(bookingRepository);
+        BookingUi bookingUi = new BookingUi(bookingService);
+
         IRouteRepository routeRepository = new RouteRepository();
         IRouteService routeService = new RouteService(routeRepository, stationRepository);
-        RouteUi routeUi = new RouteUi(routeService, stationService);
+        RouteUi routeUi = new RouteUi(routeService, stationService, ticketService, bookingService);
 
-        MainMenu mainMenu = new MainMenu(partnerUi,contractUi,offerUi, ticketUi, userUi, stationUi, routeUi);
+
+
+        MainMenu mainMenu = new MainMenu(partnerUi,contractUi,offerUi, ticketUi, userUi, stationUi, routeUi, bookingUi);
         userUi.setMainMenu(mainMenu);
 
 

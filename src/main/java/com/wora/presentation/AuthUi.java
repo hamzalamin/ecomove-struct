@@ -11,7 +11,6 @@ public class AuthUi {
         this.userUi = userUi;
     }
 
-
     public void AuthMenu() throws SQLException {
         int choice = 0;
 
